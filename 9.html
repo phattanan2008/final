@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <title>รีวิวหนังสือ - ยอดมนุษย์ดาวเศร้า</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Reset & base */
+    * {
+      box-sizing: border-box;
+      font-family: 'Sarabun', sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: #c1e9eb;
+      color: #333;
+      padding-top: 150px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Header */
+    .header-wrap {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.6), rgba(255, 255, 255, 0.25));
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 30px rgba(72, 209, 204, 0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+    .header-wrap a img {
+      height: 120px;
+      border-radius: 50%;
+      transition: transform 0.3s ease;
+    }
+    .header-wrap a img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Audio Player */
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .play-btn {
+      background-color: #fffacd;
+      border: none;
+      border-radius: 50%;
+      width: 90px;
+      height: 90px;
+      font-size: 26px;
+      cursor: pointer;
+      color: #333;
+      box-shadow: 0 0 25px rgba(72, 209, 204, 1);
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .play-btn:hover {
+      background-color: #ffef9f;
+      transform: scale(1.1);
+    }
+    audio {
+      display: none;
+    }
+
+    /* Heading */
+    h1 {
+      text-align: center;
+      margin: 40px 0 15px;
+      font-weight: 700;
+      font-size: 2.8rem;
+      color: #084447;
+      user-select: none;
+    }
+    .highlight {
+      background: linear-gradient(135deg, #ffb6c1, #ff69b4);
+      color: white;
+      padding: 12px 40px;
+      border-radius: 35px;
+      box-shadow: 0 4px 10px rgba(255, 105, 180, 0.4);
+      display: inline-block;
+      font-weight: 700;
+      letter-spacing: 1px;
+    }
+
+    /* Container */
+    .container {
+      max-width: 960px;
+      margin: 0 auto 60px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      justify-content: center;
+      align-items: stretch;
+      padding: 0 20px;
+    }
+
+    /* Image Box */
+    .image-box {
+      flex: 1 1 300px;
+      max-width: 350px;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .image-box img {
+      width: 100%;
+      border-radius: 20px;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    /* Text Box */
+    .text-box {
+      flex: 1 1 350px;
+      background-color: #fffacd;
+      border-radius: 25px;
+      box-shadow: 0 8px 15px rgba(0, 0, 0, 0.12);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .text-main {
+      padding: 30px 35px;
+      flex-grow: 1;
+      font-size: 18px;
+      color: #333;
+      line-height: 1.7;
+    }
+    .text-footer {
+      background-color: #ffb6c1;
+      padding: 18px 35px;
+      font-size: 15px;
+      color: #333;
+      box-shadow: inset 0 0 8px rgba(255, 105, 180, 0.3);
+      border-top: 1px solid #ff69b4;
+      font-weight: 600;
+      user-select: none;
+    }
+
+    /* Pagination */
+    .pagination {
+      display: flex;
+      justify-content: center;
+      margin: 40px 0 60px;
+    }
+    .page-btn {
+  background-color: #48d1cc;
+  color: white;
+  padding: 24px 36px; /* ปรับขนาดใหญ่ขึ้น */
+  border-radius: 60px; /* เพิ่มความโค้ง */
+  font-size: 20px; /* ปรับขนาดตัวอักษรให้ใหญ่ขึ้น */
+  text-decoration: none;
+  font-weight: 700;
+  box-shadow: 0 6px 15px rgba(72, 209, 204, 0.7);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  user-select: none;
+}
+
+video {
+  border-radius: 20px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+}
+
+    .page-btn:hover {
+      background-color: #30b0aa;
+      box-shadow: 0 8px 20px rgba(48, 176, 170, 0.9);
+    }
+
+    /* Visitor Counter */
+    .visitor-counter-wrap {
+      background-color: #87cefa;
+      text-align: center;
+      padding: 22px 0;
+      font-size: 14px;
+      color: #333;
+      user-select: none;
+    }
+    .visitor-counter-wrap a {
+      color: #084447;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .visitor-counter-wrap a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media screen and (max-width: 900px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .image-box,
+      .text-box {
+        max-width: 90vw;
+        flex: 1 1 100%;
+      }
+    }
+    @media screen and (max-width: 400px) {
+      h1 {
+        font-size: 2rem;
+      }
+      .play-btn {
+        width: 70px;
+        height: 70px;
+        font-size: 22px;
+      }
+      .text-main {
+        font-size: 16px;
+      }
+      .text-footer {
+        font-size: 13px;
+        padding: 12px 20px;
+      }
+      .page-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-wrap">
+    <a href="index.html" aria-label="กลับหน้าหลัก">
+      <img src="logo.png" alt="โลโก้ รีวิวหนังสือ" />
+    </a>
+    <div class="audio-player">
+      <button class="play-btn" id="toggleAudio" aria-pressed="false" aria-label="เล่นเพลงพื้นหลัง">▶️</button>
+      <audio id="bg-music" loop>
+        <source src="Tip.mp3" type="audio/mpeg" />
+      </audio>
+    </div>
+  </div>
+
+  <h1><span class="highlight">รวมนิทานก่อนนอน</span></h1>
+
+  <div class="container" role="main">
+
+    <div class="image-box">
+      <img src="p9.png" alt="ปกหนังสือรวมนิทานก่อนนอน" />
+    </div>
+
+    <article class="text-box" aria-labelledby="desc-title">
+      <section class="text-main">
+        <p id="desc-title" style="font-weight: 600; margin-bottom: 20px; font-size: 1.2rem; color: #084447;">
+          รีวิวหนังสือ
+        </p>
+        <p>
+        มีสไตล์อบอุ่น เรียบง่าย แต่เปี่ยมด้วยความหมาย แฝงแนวคิดด้านจริยธรรม ธรรมชาติ และการมองโลกอย่างเข้าใจ ผ่านภาษาที่สละสลวยและลื่นไหล เหมาะกับการอ่านก่อนนอนทั้งสำหรับเด็กและผู้ใหญ่ที่อยากได้แรงบันดาลใจเบา ๆ ก่อนเข้านอน
+
+เรื่องราวมักพูดถึงสัตว์ เด็ก หรือเหตุการณ์เล็ก ๆ ในชีวิตประจำวันที่มีมุมมองน่าคิด บางเรื่องสอนใจอย่างลึกซึ้งโดยไม่ต้องเทศนา
+        </p>
+      </section>
+      <section class="text-footer">
+        <p>แต่งโดย: นทธี ศศิวิมล<br />รูปภาพจาก: mebmarket.com</p>
+      </section>
+    </article>
+
+  </div>
+
+  <h1><span class="highlight">ภายในหนังสือ</span></h1>
+    <center><video width="500" height="700" controls>
+      <source src="9.mp4" type="video/mp4">
+    </video></center>
+
+
+  <div class="pagination">
+    <a href="index.html" class="page-btn" role="button">⬅️ กลับหน้าหลัก</a>
+  </div>
+
+  <div class="visitor-counter-wrap">
+    <a href="http://www.freevisitorcounters.com" target="_blank" rel="noopener noreferrer">www.freevisitorcounters</a>
+    <script type="text/javascript" src="https://www.freevisitorcounters.com/auth.php?id=faecc2e071958c0245946af12030f961ce94fa54"></script>
+    <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1372503/t/2"></script>
+  </div>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('toggleAudio');
+    let isPlaying = false;
+
+    btn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        btn.textContent = '▶️';
+        btn.setAttribute('aria-pressed', 'false');
+      } else {
+        audio.play();
+        btn.textContent = '⏸️';
+        btn.setAttribute('aria-pressed', 'true');
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+
+</body>
+</html>

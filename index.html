@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="th">
+  <title>รีวิวหนังสือ</title>
+<head>
+ <meta charset="UTF-8">
+  <title>รีวิวหนังสือ</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;700&display=swap" rel="stylesheet">
+ <style>
+    * {
+      box-sizing: border-box;
+      font-family: 'Sarabun', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #E0FFFF	;
+      color: #333;
+      padding-top: 150px;
+    }
+
+    .header-wrap {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 150px;
+      background: linear-gradient(135deg, rgba(72, 209, 204, 0.6), rgba(255, 255, 255, 0.25));
+      backdrop-filter: blur(15px);
+      box-shadow: 0 20px 30px rgba(72, 209, 204, 0.5);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 40px;
+    }
+
+    .header-wrap img {
+      height: 110px;
+      border-radius: 50%;
+    }
+
+    .audio-player {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .play-btn {
+      background-color: #fff8dc;
+      border: none;
+      border-radius: 50%;
+      width: 70px;
+      height: 70px;
+      font-size: 26px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(72,209,204, 0.7);
+      transition: transform 0.3s ease, background-color 0.3s ease;
+    }
+
+    .play-btn:hover {
+      background-color: #ffef9f;
+      transform: scale(1.1);
+    }
+
+    audio {
+      display: none;
+    }
+
+    h1 {
+  width: 80px;
+  height: 80px;
+  background-color: rgb(255, 105, 180);
+  color: #084447;
+  border-radius: 50%;  /* ทำเป็นวงกลม */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 1;
+  user-select: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+  margin: 20px auto; /* กึ่งกลางและเว้นระยะ */
+}
+
+h1 span:first-child {
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+h1 span:last-child {
+  font-size: 36px;
+  font-weight: 900;
+  line-height: 1;
+}
+
+    .book-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 30px 20px;
+    }
+
+    .book-item {
+      flex: 0 0 calc(33.33% - 20px);
+      background-color: #fff;
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .book-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .book-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .book-item p {
+      margin-top: 15px;
+      font-weight: bold;
+      color: #0077aa;
+      font-size: 18px;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin: 40px 0;
+    }
+
+    .page-btn {
+      background-color: #48d1cc;
+      color: white;
+      padding: 10px 22px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+
+    .page-btn:hover {
+      background-color: #30b0aa;
+    }
+
+    .visitor-counter-wrap {
+      background-color: #87cefa;
+      text-align: center;
+      padding: 20px 0;
+    }
+
+    @media screen and (max-width: 992px) {
+      .book-item {
+        flex: 0 0 calc(50% - 20px);
+      }
+    }
+
+    @media screen and (max-width: 600px) {
+      .book-item {
+        flex: 0 0 100%;
+      }
+
+      .play-btn {
+        width: 60px;
+        height: 60px;
+        font-size: 22px;
+      }
+
+      h1 {
+        font-size: 22px;
+        padding: 10px 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header-wrap">
+    <a href="index.html">
+      <img src="logo.png" alt="รีวิวหนังสือ">
+    </a>
+    <div class="audio-player">
+      <button class="play-btn" id="toggleAudio">▶️</button>
+      <audio id="bg-music" loop>
+        <source src="Tip.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+    <center>
+  <h1>
+    <span>หน้า</span>
+    <span>1</span>
+  </h1>
+</center>
+
+  <div class="book-grid">
+
+    <a href="1.html" class="book-item">
+      <img src="p1.jpg" alt="ยอดมนุษย์ดาวเศร้า">
+      <p>ยอดมนุษย์ดาวเศร้า</p>
+    </a>
+
+    <a href="2.html" class="book-item">
+      <img src="p2.jpg" alt="The Secret Garden">
+      <p>The Secret Garden</p>
+    </a>
+
+    <a href="3.html" class="book-item">
+      <img src="p3.jpg" alt="มหัศจรรย์ร่างกายฯ">
+      <p>มหัศจรรย์ร่างกายของเราและโภชนาการน่ารู้</p>
+    </a>
+
+    <a href="4.html" class="book-item">
+      <img src="p4.jpg" alt="ล่าปริศนา...">
+      <p>ล่าปริศนาสิ่งลี้ลับและโบราณคดีสุดพิศวง</p>
+    </a>
+
+    <a href="5.html" class="book-item">
+      <img src="p5.jpg" alt="ท้าทดลองวิทยาศาสตร์">
+      <p>ท้าทดลองวิทยาศาสตร์และแก้ไขปัญหาภัยใกล้ตัว</p>
+    </a>
+
+    <a href="6.html" class="book-item">
+      <img src="p6.jpg" alt="ไขความลับเคมี">
+      <p>ไขความลับเคมี</p>
+    </a>
+
+    <a href="7.html" class="book-item">
+      <img src="p7.jpg" alt="เปิดแฟ้มนักวิทยาศาสตร์">
+      <p>เปิดแฟ้มนักวิทยาศาสตร์คนดัง</p>
+    </a>
+
+    <a href="8.html" class="book-item">
+      <img src="p8.jpg" alt="ค้นพบสมรรถภาพมนุษย์">
+      <p>ค้นพบที่สุดสมรรถภาพของมนุษย์</p>
+    </a>
+
+    <a href="9.html" class="book-item">
+      <img src="p9.png" alt="รวมนิทานก่อนนอน">
+      <p>รวมนิทานก่อนนอน</p>
+    </a>
+
+    <a href="19.html" class="book-item">
+      <img src="p19.png" alt="ผ่าพิภพไททัน">
+      <p>ผ่าพิภพไททัน</p>
+    </a>
+
+
+  </div>
+
+  <div class="pagination">
+  <a href="index.html" class="page-btn">1</a>
+  <a href="index1.html" class="page-btn">2</a>
+</div>
+
+
+
+  <div class="visitor-counter-wrap">
+  <center>
+    <a href='http://www.freevisitorcounters.com'>www.freevisitorcounters</a>
+    <script type='text/javascript' src='https://www.freevisitorcounters.com/auth.php?id=faecc2e071958c0245946af12030f961ce94fa54'></script>
+    <script type="text/javascript" src="https://www.freevisitorcounters.com/en/home/counter/1372503/t/2"></script>
+  </center>
+</div>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    const btn = document.getElementById('toggleAudio');
+    let isPlaying = false;
+
+    btn.addEventListener('click', () => {
+      if (isPlaying) {
+        audio.pause();
+        btn.textContent = '▶️';
+      } else {
+        audio.play();
+        btn.textContent = '⏸️';
+      }
+      isPlaying = !isPlaying;
+    });
+  </script>
+</body>
+</html>
